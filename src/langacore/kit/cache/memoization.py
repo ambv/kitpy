@@ -42,7 +42,7 @@ def memoize(func=None, update_interval=300, max_size=DEFAULT_MEMOIZE_MAX_SIZE, s
             
             # get the buffered values and check whether they are up-to-date
             result, acquisition_time = cached_values[key]
-            if time() - acquisition_time > update_interval:
+            if update_interval and time() - acquisition_time > update_interval:
                 del cached_values[key]
 
         if key not in cached_values:
