@@ -3,7 +3,8 @@
 A reusable synchronization decorator implementation. It is using reentrant locks to synchronize
 subsequent calls of the specified functions.
 """
- 
+from __future__ import with_statement
+
 import sys
 from threading import RLock
 from functools import wraps
