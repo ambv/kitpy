@@ -10,7 +10,7 @@ from time import time, sleep
 
 from langacore.kit.concurrency import synchronized
 
-SLEEP_AMOUNT=0.1 #seconds
+SLEEP_AMOUNT=0.05 #seconds
 
 def test_simple_synchronization(sleep_amount=SLEEP_AMOUNT):
     @synchronized

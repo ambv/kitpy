@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-A reusable memoization decorator implementation. It is using a cache of pickled arguments
+Implements a reusable memoization decorator. It is using a finite-size cache
+with pickled arguments as keys, to hold the outcome of a specific function call.
+When the decorated function is called again with the same arguments, the outcome
+is fetched from the cache instead of being recalculated again.
+
+The cache used maintains a list of *Least Recently Used* keys so that in case of
+overflow only the seemingly least important ones get deleted.
 """
  
 import cPickle as pickle
@@ -13,11 +19,11 @@ DEFAULT_MEMOIZE_MAX_SIZE=256
 
  
 def memoize(func=None, update_interval=300, max_size=DEFAULT_MEMOIZE_MAX_SIZE, skip_first=False):
-    """ memoization decorator. 
-    
-        update_interval - time in seconds after which the actual function will be called again 
-        max_size - maximum buffer count for distinct memoize hashes for the function 
-        skip_first - if True, the first argument to the actual function won't be added to the memoize hash 
+    """ Memoization decorator.
+            
+        :param update_interval: time in seconds after which the actual function will be called again 
+        :param max_size: maximum buffer count for distinct memoize hashes for the function 
+        :param skip_first: if ``True``, the first argument to the actual function won't be added to the memoize hash 
     """
 
     # the decarator can be used with an argument as well as without any 
