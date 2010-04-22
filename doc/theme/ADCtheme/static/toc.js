@@ -21,8 +21,8 @@ $(document).ready(function () {
       .each(function(index) {
         var t = $(this);
         var html = t.html()
+            .replace(/langacore\.kit/ig, 'langacore&#46;kit')
             .replace(/\./ig, '.<br/>&nbsp;&nbsp;')
-            .replace(/langacore\.<br\/>&nbsp;&nbsp;kit/ig, 'langacore.kit');
         t.html(html);    
         });
 });
