@@ -1,14 +1,36 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-"""
-Memoization tests, using py.test. Run as:
 
-$ easy_install -U py
-$ py.test
+# Copyright (C) 2010 Łukasz Langa
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""Memoization tests
+   -----------------
+
+   Tests use the ``py.test`` framework. Run as::
+       
+       $ easy_install -U py
+       $ py.test
 """
+
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
 from time import time, sleep
 
 from langacore.kit.cache import memoize
-
 
 def test_memoization_update_interval():
     @memoize(update_interval=4)

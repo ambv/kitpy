@@ -16,6 +16,12 @@
 from setuptools import setup, find_packages
 from doc.conf import release 
 
+import sys
+
+
+assert sys.version_info >= (2, 7), "Python 2.7+ required."
+
+
 setup (
     name = 'langacore.kit.common',
     version = release,
@@ -34,7 +40,7 @@ setup (
     namespace_packages = ['langacore', 'langacore.kit'],
     zip_safe = True,
     install_requires = [
-        'setuptools',
+        'distribute',
         'lockfile',
         ],
     
@@ -47,9 +53,6 @@ setup (
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows :: Windows NT/2000',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.5',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ]

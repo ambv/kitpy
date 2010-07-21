@@ -1,14 +1,36 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-"""\
-Implements a reusable memoization decorator. It is using a finite-size cache
-with pickled arguments as keys, to hold the outcome of a specific function call.
-When the decorated function is called again with the same arguments, the outcome
-is fetched from the cache instead of being recalculated again.
 
-The cache used maintains a list of *Least Recently Used* keys so that in case of
-overflow only the seemingly least important ones get deleted.
+# Copyright (C) 2010 Łukasz Langa
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""langacore.kit.cache.memoization
+   -------------------------------
+
+   Implements a reusable memoization decorator. It is using a finite-size cache
+   with pickled arguments as keys, to hold the outcome of a specific function
+   call. When the decorated function is called again with the same arguments,
+   the outcome is fetched from the cache instead of being recalculated again.
+
+   The cache used maintains a list of *Least Recently Used* keys so that in
+   case of overflow only the seemingly least important ones get deleted.
 """
- 
+
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import cPickle as pickle
 import sys
 from time import time
@@ -18,16 +40,24 @@ from functools import wraps
 def memoize(func=None, update_interval=300, max_size=256, skip_first=False, fast_updates=False):
     """Memoization decorator.
             
-        :param update_interval: time in seconds after which the actual function will be called again 
-        :param max_size: maximum buffer count for distinct memoize hashes for the function 
-        :param skip_first: ``False`` by default; if ``True``, the first argument to the actual
-                            function won't be added to the memoize hash 
-        :param fast_updates: ``False`` by default; if ``True``, an alternative LRU algorithm is used
-                             where all function invocations except every Nth (where N == sys.maxint)
-                             are much faster but cache overflow is costly. In general, set 
-                             ``fast_updates`` to ``True`` for functions where you are sure that the
-                             possible number of argument combinations is smaller than ``max_size``
-    """
+        :param update_interval: time in seconds after which the actual function
+                                will be called again 
+
+        :param max_size: maximum buffer count for distinct memoize hashes for
+                         the function 
+        
+        :param skip_first: ``False`` by default; if ``True``, the first
+                           argument to the actual function won't be added to
+                           the memoize hash 
+        
+        :param fast_updates: ``False`` by default; if ``True``, an alternative
+                             LRU algorithm is used where all function
+                             invocations except every Nth
+                             (where N ==sys.maxint) are much faster but cache
+                             overflow is costly.  In general, set
+                             ``fast_updates`` to ``True`` for functions where
+                             you are sure that the possible number of argument
+                             combinations is smaller than ``max_size`` """
 
     # the decorator can be used with an argument as well as without any 
     if func is None:
