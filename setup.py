@@ -13,14 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from setuptools import setup, find_packages
-from doc.conf import release 
-
+import os
 import sys
-
+from setuptools import setup, find_packages
 
 assert sys.version_info >= (2, 7), "Python 2.7+ required."
 
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as ld_file:
+    long_description = ld_file.read()
+
+from doc.conf import release 
 
 setup (
     name = 'langacore.kit.common',
@@ -29,7 +31,7 @@ setup (
     author_email = 'support@langacore.org, lukasz@langa.pl',
     description = "A library of various simple common routines that keep being " \
                   "rewritten all over again in every project we're working on.",
-    long_description = '',
+    long_description = long_description,
     url = 'http://packages.python.org/langacore.kit.common/',
     keywords = '',
     platforms = ['any'],
