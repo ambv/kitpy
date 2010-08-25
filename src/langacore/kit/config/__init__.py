@@ -24,7 +24,9 @@ from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from ConfigParser import SafeConfigParser
+from collections import Callable
+
+from ConfigParser import SafeConfigParser, NoOptionError, NoSectionError
 
 
 class FunkyConfigParser(SafeConfigParser):
@@ -52,7 +54,7 @@ class FunkyConfigParser(SafeConfigParser):
     def get(self, section, option, fallback=None, conv=str):
         try:
             raw_value = SafeConfigParser.get(self, section, option)
-        except (configparser.NoOptionError, configparser.NoSectionError):
+        except (NoOptionError, NoSectionError):
             if fallback is None:
                 raise
             elif isinstance(fallback, Callable):
