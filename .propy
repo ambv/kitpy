@@ -1,0 +1,5 @@
+cd ../langacore-kit-venv27
+bin/activate
+cd ../langacore-kit-common/src/langacore/kit
+lt 1
+todo-list --python --html --rest
