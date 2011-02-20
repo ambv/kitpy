@@ -1,5 +1,9 @@
-cd ../langacore-kit-venv27
-bin/activate
+# This is part of my automation procedure for simplifying
+# the development process. It's specific to my machine.
+# You don't need it.
+
+cd ../lck-virtualenv
+source bin/activate
 cd ../langacore-kit-common/src/langacore/kit
 lt 1
 todo-list --python --html --rest
