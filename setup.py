@@ -22,20 +22,21 @@ assert sys.version_info >= (2, 7), "Python 2.7+ required."
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as ld_file:
     long_description = ld_file.read()
 
-from doc.conf import release 
+from doc.conf import release
 
 setup (
     name = 'langacore.kit.common',
     version = release,
     author = 'LangaCore, Lukasz Langa',
     author_email = 'support@langacore.org, lukasz@langa.pl',
-    description = "A library of various simple common routines that keep being " \
-                  "rewritten all over again in every project we're working on.",
+    description = ("A library of various simple common routines that keep "
+                   "being rewritten all over again in every project I'm "
+                   "working on."),
     long_description = long_description,
     url = 'http://packages.python.org/langacore.kit.common/',
     keywords = '',
     platforms = ['any'],
-    license = 'GPL v3', 
+    license = 'GPL v3',
     packages = find_packages('src'),
     include_package_data = True,
     package_dir = {'':'src'},
@@ -45,7 +46,7 @@ setup (
         'distribute',
         'lockfile',
         ],
-    
+
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
