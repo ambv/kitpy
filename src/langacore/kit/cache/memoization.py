@@ -99,7 +99,8 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False, fast
             # clear the least recently used value if the maximum size
             # of the buffer is exceeded
             if max_size is not None and len(lru_list) > max_size:
-                del cached_values[lru_list.pop(0)]
+                key_to_remove = lru_list.pop(0)
+                del cached_values[key_to_remove]
 
         return cached_values[key][0]
 
@@ -123,8 +124,9 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False, fast
             cached_values[key] = (func(*args, **kwargs), time())
 
             # clear the least recently used value if the maximum size
-            # of the buffer is exceeded
-            if max_size is not None and len(lru_indices) > max_size:
+            # of the buffer is exceeded (max_size+1 because of the magic
+            # 'CURRENT' key)
+            if max_size is not None and len(lru_indices) > max_size + 1:
                 lru_key = min(lru_indices.iteritems(), key=lambda x: x[1])[0]
                 del lru_indices[lru_key]
                 del cached_values[lru_key]

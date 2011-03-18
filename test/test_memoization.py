@@ -32,11 +32,7 @@ from time import time, sleep
 
 from langacore.kit.cache import memoize
 
-def test_memoization_update_interval():
-    @memoize(update_interval=4)
-    def current_time():
-        return time()
-
+def _update_interval_test(current_time):
     t = current_time()
     sleep(1)
     assert t == current_time()
@@ -45,12 +41,7 @@ def test_memoization_update_interval():
     sleep(3)
     assert t != current_time()
 
-
-def test_memoization_max_size():
-    @memoize(max_size=2)
-    def current_time(arg):
-        return time()
-
+def _max_size_test(current_time):
     t1 = current_time(1)
     sleep(1)
     t2 = current_time(2)
@@ -68,7 +59,31 @@ def test_memoization_max_size():
     assert t4 == current_time(4)
     assert t1 != current_time(1)
     assert t2 != current_time(2)
-    
+
     sleep(1)
     assert t3 != current_time(3)
     assert t4 != current_time(4)
+
+def test_memoization_update_interval():
+    @memoize(update_interval=4)
+    def current_time():
+        return time()
+    _update_interval_test(current_time)
+
+def test_memoization_max_size():
+    @memoize(max_size=2)
+    def current_time(arg):
+        return time()
+    _max_size_test(current_time)
+
+def test_memoization_fast_updates_update_interval():
+    @memoize(fast_updates=True, update_interval=4)
+    def current_time():
+        return time()
+    _update_interval_test(current_time)
+
+def test_memoization_fast_updates_max_size():
+    @memoize(fast_updates=True, max_size=2)
+    def current_time(arg):
+        return time()
+    _max_size_test(current_time)
