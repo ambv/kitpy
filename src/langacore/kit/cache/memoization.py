@@ -37,7 +37,8 @@ from time import time
 from functools import wraps
 
 
-def memoize(func=None, update_interval=300, max_size=256, skip_first=False, fast_updates=False):
+def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
+    fast_updates=False):
     """Memoization decorator.
 
         :param update_interval: time in seconds after which the actual function

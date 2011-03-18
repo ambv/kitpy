@@ -46,7 +46,7 @@ class CommonPathPrefixes(list):
         if 'HOME' in os.environ:
             self.append(os.environ['HOME'])
         elif 'USER' in os.environ:
-            self.append('/home/{USER}'.format(os.environ))    
+            self.append('/home/{USER}'.format(os.environ))
             self.append('/home/users/{USER}'.format(os.environ))
             self.append('/Users/{USER}'.format(os.environ))
         self.append('/etc')
@@ -56,7 +56,7 @@ class CommonPathPrefixes(list):
            of the common path prefixes with paths in the specified list. Paths
            are permuted only when the one from the given list is not
            absolute."""
-        
+
         for p in args:
             if not p:
                 continue
@@ -78,27 +78,27 @@ def finder(explicit_path, envvar=None, multiple_allowed=False):
        check whether the file exists. If it doesn't and the path is not
        absolute, search the working directory, its parent directory and all
        child directories, the current user's home directory and /etc.
-    
+
        :param explicit_path: path explicitly given by the user, can be a single
                              entry or a sequence
-    
+
        :param envvar: name of the environment variable where to look for the
                       path
-        
+
        :param fallback: name of the file to check if everything else fails
-        
+
        :param multiple_allowed: False by default. If True, the returned type is
                                 a tuple with potentially many entries.
 
        :return: the real absolute path to the file. Raises IOError if no found.
-        
+
        ..note::
          Works only on POSIX systems."""
-    
+
     if not explicit_path:
         explicit_path = []
     elif explicit_path.__class__ in (list, tuple, set):
-        # list copying for safety reasons (routine is side-effect free) 
+        # list copying for safety reasons (routine is side-effect free)
         explicit_path = list(explicit_path)
     else:
         explicit_path = [explicit_path]
@@ -107,8 +107,8 @@ def finder(explicit_path, envvar=None, multiple_allowed=False):
 
     # keep only given arguments
     existing_paths = common_path_prefixes.generate(*explicit_path)
-    
-    try: 
+
+    try:
         if multiple_allowed:
             existing_paths = list(existing_paths)
             if not existing_paths:

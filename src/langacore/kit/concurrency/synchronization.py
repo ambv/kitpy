@@ -37,10 +37,10 @@ from lockfile import FileLock
 from functools import wraps
 
 def synchronized(func=None, lock=None, path=None):
-    """ Synchronization decorator. 
-    
-        :param lock: the user can specify a concrete lock object to be used 
-               with this specific synchronization decorator. This is 
+    """ Synchronization decorator.
+
+        :param lock: the user can specify a concrete lock object to be used
+               with this specific synchronization decorator. This is
                useful when a group of functions should be synchronized
                together.
         :param path: instead of using threading-based locking, file-based
@@ -48,12 +48,12 @@ def synchronized(func=None, lock=None, path=None):
                less performant than threading locks.
     """
 
-    # the decarator can be used with an argument as well as without any 
+    # the decarator can be used with an argument as well as without any
     if func is None:
         def wrapper(f):
             return synchronized(f, lock=lock)
         return wrapper
- 
+
     if path is None:
         _lock = lock if lock else RLock()
     else:
@@ -64,5 +64,5 @@ def synchronized(func=None, lock=None, path=None):
         with _lock:
             result = func(*args, **kwargs)
         return result
-    
+
     return wrapper
