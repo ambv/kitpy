@@ -45,7 +45,8 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
                                 will be called again
 
         :param max_size: maximum buffer count for distinct memoize hashes for
-                         the function
+                         the function. Can be set to 0 or ``None``. Be aware of
+                         the possibly inordinate memory usage in that case
 
         :param skip_first: ``False`` by default; if ``True``, the first
                            argument to the actual function won't be added to
@@ -92,6 +93,7 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
             result, acquisition_time = cached_values[key]
             if update_interval and time() - acquisition_time > update_interval:
                 del cached_values[key]
+                lru_list.remove(key)
 
         if key not in cached_values:
             cached_values[key] = (func(*args, **kwargs), time())
@@ -99,9 +101,8 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
 
             # clear the least recently used value if the maximum size
             # of the buffer is exceeded
-            if max_size is not None and len(lru_list) > max_size:
-                key_to_remove = lru_list.pop(0)
-                del cached_values[key_to_remove]
+            if max_size and len(lru_list) > max_size:
+                del cached_values[lru_list.pop(0)]
 
         return cached_values[key][0]
 
@@ -127,7 +128,7 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
             # clear the least recently used value if the maximum size
             # of the buffer is exceeded (max_size+1 because of the magic
             # 'CURRENT' key)
-            if max_size is not None and len(lru_indices) > max_size + 1:
+            if max_size and len(lru_indices) > max_size + 1:
                 lru_key = min(lru_indices.iteritems(), key=lambda x: x[1])[0]
                 del lru_indices[lru_key]
                 del cached_values[lru_key]
