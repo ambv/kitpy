@@ -52,7 +52,7 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
                            argument to the actual function won't be added to
                            the memoize hash
 
-        :param fast_updates: if ``True`` (the default), an optimezd LRU
+        :param fast_updates: if ``True`` (the default), an optimized LRU
                              algorithm is used where all function invocations
                              except every Nth (where N ==sys.maxint) are much
                              faster but cache overflow is costly. In general,
