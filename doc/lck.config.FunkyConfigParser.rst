@@ -1,7 +1,7 @@
-langacore.kit.config.FunkyConfigParser
-======================================
+lck.config.FunkyConfigParser
+============================
 
-.. currentmodule:: langacore.kit.config
+.. currentmodule:: lck.config
 
 .. autoclass:: FunkyConfigParser
 

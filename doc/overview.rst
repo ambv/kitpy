@@ -11,5 +11,5 @@ as needed, as of yet we have basically:
    :maxdepth: 2
 
    decorators
-   langacore.kit.files
-   langacore.kit.config
+   lck.files
+   lck.config

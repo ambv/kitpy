@@ -7,7 +7,8 @@ This documentation
    :maxdepth: 2
   
    overview
-   copying
+   license
+   todo
 
 Indices and tables
 ==================

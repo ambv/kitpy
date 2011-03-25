@@ -4,6 +4,6 @@
 
 cd ../lck-virtualenv
 source bin/activate
-cd ../langacore-kit-common/src/langacore/kit
+cd ../langacore-kit-common/src/lck
 lt 1
 todo-list --python --html --rest
