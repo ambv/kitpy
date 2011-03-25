@@ -19,7 +19,7 @@
    -----------------
 
    Tests use the ``py.test`` framework. Run as::
-       
+
        $ easy_install -U py
        $ py.test
 """
@@ -65,13 +65,13 @@ def _max_size_test(current_time):
     assert t4 != current_time(4)
 
 def test_memoization_update_interval():
-    @memoize(update_interval=4)
+    @memoize(fast_updates=False, update_interval=4)
     def current_time():
         return time()
     _update_interval_test(current_time)
 
 def test_memoization_max_size():
-    @memoize(max_size=2)
+    @memoize(fast_updates=False, max_size=2)
     def current_time(arg):
         return time()
     _max_size_test(current_time)
