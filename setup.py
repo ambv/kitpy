@@ -1,17 +1,23 @@
 # -*- encoding: utf-8 -*-
-# Copyright (C) 2010 LangaCore
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, version 3 of the License.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Copyright (C) 2011 by Łukasz Langa
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 
 import os
 import sys
@@ -25,32 +31,30 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as ld_file:
 from doc.conf import release
 
 setup (
-    name = 'langacore.kit.common',
+    name = 'lck.common',
     version = release,
-    author = 'LangaCore, Lukasz Langa',
-    author_email = 'support@langacore.org, lukasz@langa.pl',
+    author = 'Lukasz Langa',
+    author_email = 'lukasz@langa.pl',
     description = ("A library of various simple common routines that keep "
                    "being rewritten all over again in every project I'm "
                    "working on."),
     long_description = long_description,
-    url = 'http://packages.python.org/langacore.kit.common/',
+    url = 'http://packages.python.org/lck.common/',
     keywords = '',
     platforms = ['any'],
     license = 'GPL v3',
     packages = find_packages('src'),
     include_package_data = True,
     package_dir = {'':'src'},
-    namespace_packages = ['langacore', 'langacore.kit'],
+    namespace_packages = ['lck'],
     zip_safe = True,
     install_requires = [
-        'distribute',
         'lockfile',
-        ],
-
+    ],
     classifiers = [
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: POSIX',
         'Operating System :: MacOS :: MacOS X',
@@ -58,5 +62,5 @@ setup (
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        ]
-    )
+    ]
+)

@@ -6,7 +6,7 @@ Decorator modules
 This decorator mimics the behaviour of the Java keyword, enabling users to treat whole
 functions or methods as atomic. The most simple use case involves just decorating a function::
 
-  from langacore.kit.concurrency import synchronized
+  from lck.concurrency import synchronized
 
   @synchronized
   def func():
@@ -21,7 +21,7 @@ In case where a whole group of functions should be serialized, the user can expl
 a lock object to the decorator::
 
   from threading import Lock
-  from langacore.kit.concurrency import synchronized
+  from lck.concurrency import synchronized
 
   LOCK=Lock()
 
@@ -42,7 +42,7 @@ non-reentrant lock is used, in effect the performance is higher than in the reen
 If the application is run in a multiprocess environment, locks based on threading are not
 the answer. In that case the decorator can be fed with a file path instead of a lock object::
 
-  from langacore.kit.concurrency import synchronized
+  from lck.concurrency import synchronized
 
   @synchronized(path='/tmp/example.lock')
   def func():
@@ -67,7 +67,7 @@ multiple times with the same arguments.
 The most typical use case for this decorator will be simply::
 
   from time import sleep
-  from langacore.kit.cache import memoize
+  from lck.cache import memoize
 
   @memoize
   def expensive_func(arg):
@@ -82,7 +82,7 @@ The most typical use case for this decorator will be simply::
 The decorator is configurable so that the user can specify how long the outcome should be
 cached, or how many different sets of arguments should be stored in the cache::
 
-  from langacore.kit.cache import memoize
+  from lck.cache import memoize
 
   @memoize(update_interval=15)
   def recalculation_every_15_seconds():
@@ -96,7 +96,7 @@ Details
 =======
 For more detailed view on the decorators, see the documentation below.
 
-.. currentmodule:: langacore.kit
+.. currentmodule:: lck
 
 .. autosummary::
   :toctree:
