@@ -43,6 +43,16 @@ well.
 Change Log
 ----------
 
+0.4.2
+~~~~~
+
+* ``lck.crypto`` introduced with a couple of thin wrappers over PyCrypto
+
+0.4.1
+~~~~~
+
+* ``lck.lang.unset`` is now also ``False`` and ``len(unset)`` is zero
+
 0.4.0
 ~~~~~
 
