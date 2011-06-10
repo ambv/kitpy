@@ -77,12 +77,16 @@ class Cipher(object):
             return key_file.read()
 
     def encrypt(self, buffer, base64=False):
+        assert isinstance(buffer, bytes), "Cannot encrypt {} instances. "\
+            "Encode to bytes first.".format(buffer.__class__.__name__)
         result = self._cipher.encrypt(self._pad_buffer(buffer))
         if base64:
             result = b64encode(result)
         return result
 
     def decrypt(self, buffer, base64=False):
+        assert isinstance(buffer, bytes), "Cannot decrypt {} instances. "\
+            "Encode to bytes first.".format(buffer.__class__.__name__)
         if base64:
             buffer = b64decode(buffer)
         result = self._depad_buffer(self._cipher.decrypt(buffer))
