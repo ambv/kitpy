@@ -48,6 +48,8 @@ Change Log
 
 * ``lck.crypto`` introduced with a couple of thin wrappers over PyCrypto
 
+* ``lck.math`` introduced starting with Elo rating calculation routine.
+
 0.4.1
 ~~~~~
 
