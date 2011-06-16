@@ -49,4 +49,30 @@ class _Unset(object):
         return 0
 
 
+class _Null(object):
+    """See: http://en.wikipedia.org/wiki/Null_Object_pattern"""
+
+    def __unicode__(self):
+        return "null"
+
+    def __repr__(self):
+        return self.__unicode__()
+
+    def __nonzero__(self):
+        return False
+
+    def __len__(self):
+        return 0
+
+    def __getattr__(self, attr):
+        return self
+
+    def __setattr__(self, attr, value):
+        return self
+
+    def __getitem__(self, item):
+        return self
+
+
 unset = _Unset()
+null = _Null()
