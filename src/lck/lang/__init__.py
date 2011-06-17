@@ -53,10 +53,13 @@ class _Null(object):
     """See: http://en.wikipedia.org/wiki/Null_Object_pattern"""
 
     def __unicode__(self):
-        return "null"
+        return ""
+
+    def __str__(self):
+        return b""
 
     def __repr__(self):
-        return self.__unicode__()
+        return "null"
 
     def __nonzero__(self):
         return False
@@ -72,6 +75,15 @@ class _Null(object):
 
     def __getitem__(self, item):
         return self
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        raise StopIteration
 
 
 unset = _Unset()

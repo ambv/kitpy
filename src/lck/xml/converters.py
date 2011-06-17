@@ -42,7 +42,7 @@ def _datetime_strip_tz(value):
 
 _converters = [int, float, _datetime, _datetime_strip_tz]
 
-def etree_to_dict(element, namespace=""):
+def etree_to_dict(element, namespace="", _converters=_converters):
     """etree_to_dict(element, [namespace]) -> ("tag_name", dict_with_children)
 
     `element` must be a valid ElementTree element. `namespace` is optional,
@@ -53,7 +53,8 @@ def etree_to_dict(element, namespace=""):
     if len(element):
         response = nulldict()
         for sub_element in element:
-            tag, value = etree_to_dict(sub_element, namespace=namespace)
+            tag, value = etree_to_dict(sub_element, namespace=namespace,
+                _converters=_converters)
             if not tag:
                 continue
             if tag in response:
