@@ -28,12 +28,6 @@ from __future__ import unicode_literals
 
 from datetime import datetime
 
-from lck.lang import null
-
-class nulldict(dict):
-    def __missing__(self, key):
-        return null
-
 def _datetime(value):
     return datetime.strptime(value, '%Y-%m-%dT%H:%M:%S')
 
@@ -51,7 +45,7 @@ def etree_to_dict(element, namespace="", _converters=_converters):
     if namespace and not element.tag.startswith(namespace):
         return None, None
     if len(element):
-        response = nulldict()
+        response = {}
         for sub_element in element:
             tag, value = etree_to_dict(sub_element, namespace=namespace,
                 _converters=_converters)
