@@ -50,6 +50,7 @@ setup (
     zip_safe = True,
     install_requires = [
         'lockfile',
+        'null',
     ],
     classifiers = [
         'Development Status :: 4 - Beta',
