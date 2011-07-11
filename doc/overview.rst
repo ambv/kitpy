@@ -1,15 +1,14 @@
 Overview
---------
-For now the library is still tiny. Functionality gets added or refined 
-as needed, as of yet we have basically: 
-
-* the caching and concurrency helper decorators.
-* a config parser wrapper with fallback support in getters
-* finder for files placed in typical configuration storage places
+-------- 
+For now the library is still quite small. Functionality gets added or refined as
+needed.
 
 .. toctree::
    :maxdepth: 2
 
    decorators
+   lck.crypto
    lck.files
-   lck.config
+   lck.lang
+   lck.math
+   lck.xml 

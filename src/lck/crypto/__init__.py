@@ -41,8 +41,20 @@ from Crypto.Cipher import DES3 as _DES3
 
 from .cipher import Cipher
 
-aes = partial(Cipher, cipher=_AES)
-blowfish = partial(Cipher, cipher=_Blowfish)
-cast = partial(Cipher, cipher=_CAST)
-des = partial(Cipher, cipher=_DES)
-des3 = partial(Cipher, cipher=_DES3)
+def _setup_cipher(cipher):
+    part = partial(Cipher, cipher=cipher)
+    name = cipher.__name__.split('.')[-1]
+    part.__name__ = name.lower()
+    part.__doc__ = ("{}([key, path, create]) -> Cipher instance\n\nFactory "
+        "creating a cipher using the {} algorithm. Arguments have the same "
+        "meaning as in the raw Cipher class.").format(part.__name__, name)
+    #part.__init__ = part.__init__ # copy to instance namespace
+    #part.__init__.__doc__ = part.__doc__
+    #import pdb; pdb.set_trace()
+    return part
+
+aes = _setup_cipher(_AES)
+blowfish = _setup_cipher(_Blowfish)
+cast = _setup_cipher(_CAST)
+des = _setup_cipher(_DES)
+des3 = _setup_cipher(_DES3)

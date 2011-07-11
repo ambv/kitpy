@@ -9,11 +9,15 @@ dedicate an entire PyPI package for it.  Together however, this library
 represents a Swiss army knife for everyday needs (YMMV). Among the things you
 might find inside:
 
- * robust memoization 
+ * robust memoization
    
  * some less obvious collections (e.g. ``orderedset``)
 
  * a ``@synchronized`` decorator (with threading or lockfile backends)
+
+ * some controversial language enhancements like the Null object
+
+ * converter from ElementTree instances to dicts
 
  * file finder (searching locations commonly used for storing app data)
 
@@ -42,6 +46,17 @@ well.
 
 Change Log
 ----------
+
+0.4.3
+~~~~~
+
+* ``lck.lang.Null`` introduced, see `Null Object pattern <http://en.wikipedia.org/wiki/Null_Object_pattern>`_
+
+* ``lck.lang.unset`` is now a ``Null`` instance
+
+* ``lck.xml`` introduced with a ``etree_to_dict`` routine
+
+* ``lck.config`` has been removed, use the `configparser backport <http://pypi.python.org/pypi/configparser>`_
 
 0.4.2
 ~~~~~

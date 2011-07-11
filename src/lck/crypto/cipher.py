@@ -77,6 +77,11 @@ class Cipher(object):
             return key_file.read()
 
     def encrypt(self, buffer, base64=False):
+        """Encrypts the specified ``buffer``, optionally encoding the result to
+        Base64.
+
+        Note: only bytestrings can be encrypted directly. For Unicode strings,
+        encode them to bytes first."""
         assert isinstance(buffer, bytes), "Cannot encrypt {} instances. "\
             "Encode to bytes first.".format(buffer.__class__.__name__)
         result = self._cipher.encrypt(self._pad_buffer(buffer))
@@ -85,6 +90,11 @@ class Cipher(object):
         return result
 
     def decrypt(self, buffer, base64=False):
+        """Descrypt the specified ``buffer``, optionally decoding from Base64
+        first.
+
+        Note: only bytestrings can be decrypted directly. For Unicode strings,
+        encode them to bytes first."""
         assert isinstance(buffer, bytes), "Cannot decrypt {} instances. "\
             "Encode to bytes first.".format(buffer.__class__.__name__)
         if base64:

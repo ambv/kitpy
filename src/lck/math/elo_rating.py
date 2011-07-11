@@ -29,6 +29,12 @@ from __future__ import unicode_literals
 import math
 
 def rate(winner_rank=1000, loser_rank=1000, penalize_loser=True):
+    """rate([winner_rank, loser_rank, penalize_loser]) -> (new_winner_rank, new_loser_rank)
+
+    Computes the new ratings after a game. `winner_rank` and `loser_rank` must
+    be integers, default is 1000. If `penalize_loser` is ``True``
+    (the default), points added to the winner are subtracted from the loser."""
+
     rank_diff = winner_rank - loser_rank
     exp = rank_diff / -400
     odds = 1 / (1 + math.pow(10, exp))
