@@ -51,6 +51,7 @@ setup (
     install_requires = [
         'lockfile',
         'null',
+        'pycrypto',
     ],
     classifiers = [
         'Development Status :: 4 - Beta',
