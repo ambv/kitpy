@@ -27,6 +27,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from datetime import datetime
+from functools import partial
+from htmlentitydefs import name2codepoint as n2cp
+import re
+
+ENTITY_REGEX = re.compile(r'&(#?)(x?)(\d{1,5}|\w{1,8});')
 
 def _datetime(value):
     return datetime.strptime(value, '%Y-%m-%dT%H:%M:%S')
@@ -68,3 +73,32 @@ def etree_to_dict(element, namespace="", _converters=_converters):
             else:
                 break
     return element.tag[len(namespace):], response
+
+def substitute_entity(match):
+    ent = match.group(3)
+
+    if match.group(1) == "#":
+        if match.group(2) == '':
+            return unichr(int(ent))
+        elif match.group(2) == 'x':
+            return unichr(int('0x'+ent, 16))
+    else:
+        cp = n2cp.get(ent)
+
+        if cp:
+            return unichr(cp)
+        else:
+            return match.group()
+
+def substitute_entity_encode(match, encoding):
+    result = substitute_entity(match)
+    if isinstance(result, unicode):
+        result = result.encode(encoding)
+    return result
+
+def decode_entities(string, encoding=None):
+    substitute = substitute_entity
+    if encoding:
+        substitute = partial(substitute_entity_encode,
+            encoding=encoding)
+    return ENTITY_REGEX.subn(substitute, string)[0]

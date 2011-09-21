@@ -30,4 +30,4 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from .converters import etree_to_dict
+from .converters import etree_to_dict, decode_entities
