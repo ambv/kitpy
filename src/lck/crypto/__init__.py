@@ -45,12 +45,11 @@ def _setup_cipher(cipher):
     part = partial(Cipher, cipher=cipher)
     name = cipher.__name__.split('.')[-1]
     part.__name__ = name.lower()
+    part.__module__ = b'lck.crypto.cipher'
     part.__doc__ = ("{}([key, path, create]) -> Cipher instance\n\nFactory "
         "creating a cipher using the {} algorithm. Arguments have the same "
         "meaning as in the raw Cipher class.").format(part.__name__, name)
-    #part.__init__ = part.__init__ # copy to instance namespace
-    #part.__init__.__doc__ = part.__doc__
-    #import pdb; pdb.set_trace()
+    # FIXME: how do I make this work with >>> help(part) ???
     return part
 
 aes = _setup_cipher(_AES)
