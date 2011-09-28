@@ -47,6 +47,13 @@ well.
 Change Log
 ----------
 
+0.4.4
+~~~~~
+
+* ``lck.git`` introduced with a ``get_version`` routine
+
+* ``decode_entities`` added to ``lck.xml``
+
 0.4.3
 ~~~~~
 

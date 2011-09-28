@@ -97,6 +97,16 @@ def substitute_entity_encode(match, encoding):
     return result
 
 def decode_entities(string, encoding=None):
+    """decode_entities(string, [encoding]) -> string_with_decoded_entities
+
+    Decodes XML entities from the given string. Supports both Unicode and
+    bytestring arguments.
+
+    Note: when using a bytestring `string` argument, a bytestring will be
+    returned. In that case however, `encoding` has to be specified, otherwise
+    an UnicodeDecodeError will be raised. This is because we have to support
+    the &#xxxx; entity which enables people to use any Unicode codepoint.
+    """
     substitute = substitute_entity
     if encoding:
         substitute = partial(substitute_entity_encode,
