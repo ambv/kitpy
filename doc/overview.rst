@@ -9,6 +9,7 @@ needed.
    decorators
    lck.crypto
    lck.files
+   lck.git
    lck.lang
    lck.math
    lck.xml 

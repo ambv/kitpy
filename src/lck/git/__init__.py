@@ -39,6 +39,14 @@ from lck.cache import memoize
 
 
 def get_version(module):
+    """
+    get_version(module) -> u'git-shortSHA1 (date & time of last commit)'
+
+    Returns a short, nicely formatted tag that can be used for versioning
+    purposes on websites or command-line tools. The version given is based
+    on the last commit on the repository the specified `module` object is
+    a part of.
+    """
     if isinstance(module, basestring):
         return _get_version(module)
     else:
