@@ -83,11 +83,11 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
                            fast_updates=fast_updates)
         return wrapper
 
-    cached_values = {}
-
     if fast_updates:
-        lru_indices = {'CURRENT': 0}
+        cached_values = {'MAX_INDEX': 0}
+        lru_indices = {}
     else:
+        cached_values = {}
         lru_list = []
 
     @wraps(func)
@@ -97,8 +97,8 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
         else:
             key = pickle.dumps((args, kwargs))
 
-        lru_current = lru_indices['CURRENT'] + 1
-        lru_indices[key] = lru_current
+        max_index = cached_values['MAX_INDEX'] + 1
+        lru_indices[key] = max_index
 
         if key in cached_values:
             # get the buffered values and check whether they are up-to-date
@@ -116,21 +116,20 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
             cached_values[key] = (result, acquisition_time)
 
             # clear the least recently used value if the maximum size
-            # of the buffer is exceeded (max_size+1 because of the magic
-            # 'CURRENT' key)
-            if max_size and len(lru_indices) > max_size + 1:
+            # of the buffer is exceeded
+            if max_size and len(lru_indices) > max_size:
                 lru_key, _ = min(lru_indices.iteritems(), key=lambda x: x[1])
                 del lru_indices[lru_key]
                 del cached_values[lru_key]
 
-        if lru_current == sys.maxint:
+        if max_index == sys.maxint:
             # renumber indices to avoid hurting performance by using bigints
-            lru_current = 0
+            max_index = 0
             for key, _ in sorted(lru_indices.iteritems(), key=lambda x: x[1]):
-                lru_indices[key] = lru_current
-                lru_current += 1
+                lru_indices[key] = max_index
+                max_index += 1
 
-        lru_indices['CURRENT'] = lru_current
+        cached_values['MAX_INDEX'] = max_index
 
         return result
 

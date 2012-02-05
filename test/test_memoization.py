@@ -70,6 +70,31 @@ def _max_size_test(current_time):
     assert t3 != current_time(3)
     assert t4 != current_time(4)
 
+def _exception_test(current_time):
+    t1 = current_time(1)
+    sleep(1)
+    t2 = current_time(2)
+
+    sleep(1)
+    assert t1 == current_time(1)
+    assert t2 == current_time(2)
+
+    sleep(1)
+    try:
+        t0 = current_time(1)
+    except ValueError:
+        pass
+    else:
+        assert False, "Exception not raised ({}).".format("stale value"
+            if t1 == t0 else "new value")
+
+    t3 = current_time(3)
+    t4 = current_time(4)
+
+    sleep(1)
+    assert t3 == current_time(3)
+    assert t4 == current_time(4)
+
 def test_memoization_update_interval():
     @memoize(fast_updates=False, update_interval=4)
     def current_time():
@@ -82,6 +107,16 @@ def test_memoization_max_size():
         return time()
     _max_size_test(current_time)
 
+def test_memoization_exception():
+    already_used = set()
+    @memoize(fast_updates=False, update_interval=3, max_size=2)
+    def current_time(arg):
+        if arg in already_used:
+            raise ValueError('argument already used')
+        already_used.add(arg)
+        return time()
+    _exception_test(current_time)
+
 def test_memoization_fast_updates_update_interval():
     @memoize(fast_updates=True, update_interval=4)
     def current_time():
@@ -93,3 +128,13 @@ def test_memoization_fast_updates_max_size():
     def current_time(arg):
         return time()
     _max_size_test(current_time)
+
+def test_memoization_fast_updates_exception():
+    already_used = set()
+    @memoize(fast_updates=True, update_interval=3, max_size=2)
+    def current_time(arg):
+        if arg in already_used:
+            raise ValueError('argument already used')
+        already_used.add(arg)
+        return time()
+    _exception_test(current_time)

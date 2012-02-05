@@ -47,6 +47,12 @@ well.
 Change Log
 ----------
 
+0.4.5
+~~~~~
+
+* fixed an uncommon bug in memoization where an exception in the memoized
+  function could leave stale keys in the cache 
+
 0.4.4
 ~~~~~
 
