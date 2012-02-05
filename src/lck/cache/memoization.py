@@ -61,7 +61,7 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
 
         :param fast_updates: if ``True`` (the default), an optimized LRU
                              algorithm is used where all function invocations
-                             except every Nth (where N ==sys.maxint) are much
+                             except every Nth (where N == sys.maxint) are much
                              faster but cache overflow is costly. In general,
                              having ``fast_updates`` set to ``True`` gives
                              a 15% performance boost when there are no cache
@@ -107,7 +107,11 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
                 del cached_values[key]
 
         if key not in cached_values:
-            result = func(*args, **kwargs)
+            try:
+                result = func(*args, **kwargs)
+            except:
+                del lru_indices[key]
+                raise
             acquisition_time = time()
             cached_values[key] = (result, acquisition_time)
 
@@ -115,7 +119,7 @@ def memoize(func=None, update_interval=300, max_size=256, skip_first=False,
             # of the buffer is exceeded (max_size+1 because of the magic
             # 'CURRENT' key)
             if max_size and len(lru_indices) > max_size + 1:
-                lru_key = min(lru_indices.iteritems(), key=lambda x: x[1])[0]
+                lru_key, _ = min(lru_indices.iteritems(), key=lambda x: x[1])
                 del lru_indices[lru_key]
                 del cached_values[lru_key]
 
