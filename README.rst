@@ -30,9 +30,9 @@ or::
 
   $ easy_install lck.common
 
-The `source code repository <http://github.com/LangaCore/kitpy>`_ and 
-`issue tracker <http://github.com/LangaCore/kitpy/issues>`_ are 
-maintained on `GitHub <http://github.com/LangaCore/kitpy>`_.
+The `source code repository <http://github.com/ambv/kitpy>`_ and 
+`issue tracker <http://github.com/ambv/kitpy/issues>`_ are 
+maintained on `GitHub <http://github.com/ambv/kitpy>`_.
 
 For the curious, ``lck`` stands for LangaCore Kit. LangaCore is a one man
 software development shop of mine.
